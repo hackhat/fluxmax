@@ -5,8 +5,7 @@ var _ = require('lodash');
 
 
 /**
- * [ChangeTypes description]
- * @param {String[]} changeTypes
+ * @class core.ChangeTypes
  */
 var ChangeTypes = function(changeTypes){
     // If you provide an array create an object from the array.

@@ -1,5 +1,5 @@
 var _               = require('lodash');
-var RealTimeChanges = require('./RealTimeChanges');
+var Context = require('./Context');
 var Listen          = require('./Listen');
 var ChangeTypes     = require('./ChangeTypes');
 
@@ -7,10 +7,12 @@ var ChangeTypes     = require('./ChangeTypes');
 
 
 
-
+/**
+ * @class core.Fluxmax
+ */
 var Fluxmax = function(){
-    this.__eachChange            = new RealTimeChanges();
-    this.__batchChange           = new RealTimeChanges();
+    this.__eachChange            = new Context();
+    this.__batchChange           = new Context();
     this.__entities              = [];
     this.__entitiesById          = {};
     this.__changeTypesByEntityId = {};
@@ -25,11 +27,17 @@ var Fluxmax = function(){
 Fluxmax.ChangeTypes = ChangeTypes;
 
 
-
+/**
+ * @static
+ * @private
+ */
 Fluxmax.__instance = void 0;
 
 
 
+/**
+ * @static
+ */
 Fluxmax.getInstance = function(){
     if(!Fluxmax.__instance){
         Fluxmax.__instance = new Fluxmax();
@@ -39,6 +47,9 @@ Fluxmax.getInstance = function(){
 
 
 
+/**
+ * @static
+ */
 Fluxmax.listen = function(entityId, listenerDefs){
     var listen = new Listen(entityId, listenerDefs);
     // Need to start in order to test deps.
@@ -87,12 +98,18 @@ Fluxmax.addMetaEntity = function(metaEntity){
 
 
 
+/**
+ * @static
+ */
 Fluxmax.renderDependencies = function(){
     Fluxmax.getInstance().renderDependencies();
 }
 
 
 
+/**
+ * @static
+ */
 Fluxmax.checkDependencies = function(){
     Fluxmax.getInstance().checkDependencies();
 }
@@ -105,6 +122,8 @@ _.extend(Fluxmax.prototype, {
 
 
 
+    /**
+     */
     addEntities: function(entities){
         entities.forEach(function(entity){
             var entityId = entity.getEntityId();
@@ -135,6 +154,8 @@ _.extend(Fluxmax.prototype, {
 
 
 
+    /**
+     */
     setEntityChangeTypes: function(entityId, changeTypesDef){
         this.__changeTypesByEntityId[entityId] = new ChangeTypes(changeTypesDef);
     },
@@ -143,7 +164,6 @@ _.extend(Fluxmax.prototype, {
 
     /**
      * Only based on static deps.
-     * @return {[type]} [description]
      */
     renderDependencies: function(){
         this.__eachChange.renderDependecies('each');
@@ -161,7 +181,6 @@ _.extend(Fluxmax.prototype, {
     /**
      * Check if the events that has been registered in the __each and __batch
      * are valid based on the Entity.changeTypes provided.
-     * @type {[type]}
      */
     checkDependencies: function(){
         var eachDeps  = this.__eachChange.getDependencies();
@@ -268,6 +287,7 @@ _.extend(Fluxmax.prototype, {
 
 
     emitBatchChanges: function(){
+        // Flushes the changes stores in this.__eachChange.
         var changes = this.__eachChange.getChanges();
         if(changes.length === 0) return;
         this.__eachChange.clearChanges();

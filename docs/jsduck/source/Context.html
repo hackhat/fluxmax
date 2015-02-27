@@ -1,10 +1,33 @@
-var _ = require('lodash');
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">var _ = require('lodash');
 
 
 
 
-
-var RealTimeChanges = function(options){
+<span id='core-Context'>/**
+</span> * @class core.Context
+ *
+ * Is a context where you can add and remove listeners (#on, #off methods).
+ * After the events are set you can call #emitChangeToListeners to emit the change
+ * to the listeners.
+ */
+var Context = function(options){
     options = _.extend({
 
     }, options);
@@ -19,12 +42,12 @@ var RealTimeChanges = function(options){
 
 
 
-_.extend(RealTimeChanges.prototype, {
+_.extend(Context.prototype, {
 
 
 
-    /**
-     * @param {String} callerSrc Source of who is listening right now.
+<span id='core-Context-method-on'>    /**
+</span>     * @param {String} callerSrc Source of who is listening right now.
      * @param {String} targetSrc Source of whom is listening to.
      * @param {String} targetType The type of change that is listening to.
      * @param {Function} runCb This is called when the change matches the filters.
@@ -62,8 +85,8 @@ _.extend(RealTimeChanges.prototype, {
 
 
 
-    /**
-     * @param {String} callerSrc Source of who is listening right now.
+<span id='core-Context-method-off'>    /**
+</span>     * @param {String} callerSrc Source of who is listening right now.
      * @param {String} targetSrc Source of whom is listening to.
      * @param {String} targetType The type of change that is listening to.
      * @param {Function} runCb This is called when the change matches the filters.
@@ -93,8 +116,8 @@ _.extend(RealTimeChanges.prototype, {
 
 
 
-    /**
-     * When a new data change is received, all listeners are notified.
+<span id='core-Context-method-emitChangeToListeners'>    /**
+</span>     * When a new data change is received, all listeners are notified.
      */
     emitChangeToListeners: function(payload){
         var listeners = [];
@@ -121,24 +144,36 @@ _.extend(RealTimeChanges.prototype, {
 
 
 
+<span id='core-Context-method-clearChanges'>    /**
+</span>     * Deletes all the stored changes.
+     */
     clearChanges: function(){
         this.__changes = [];
     },
 
 
 
+<span id='core-Context-method-getChanges'>    /**
+</span>     * Returns all changes.
+     */
     getChanges: function(){
         return this.__changes;
     },
 
 
 
+<span id='core-Context-method-getDependencies'>    /**
+</span>     * Returns dependencies.
+     */
     getDependencies: function(){
         return this.__dependencies.slice(0);
     },
 
 
 
+<span id='core-Context-method-renderDependecies'>    /**
+</span>     * Renders dependencies.
+     */
     renderDependecies: function(type){
         console.group('Dependencies '+type+':')
         var dataByType = [];
@@ -189,4 +224,7 @@ _.extend(RealTimeChanges.prototype, {
 
 
 
-module.exports = RealTimeChanges;
+module.exports = Context;
+</pre>
+</body>
+</html>

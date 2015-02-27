@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">var _ = require('lodash');
+
+
+
+
+
+<span id='core-ChangeTypes'>/**
+</span> * @class core.ChangeTypes
+ */
+var ChangeTypes = function(changeTypes){
+    // If you provide an array create an object from the array.
+    if(_.isArray(changeTypes)){
+        this.__changeTypes = {}
+        changeTypes.forEach(function(changeType){
+            this.__changeTypes[changeType] = true;
+        }.bind(this))
+    }else{
+        this.__changeTypes = changeTypes;
+    }
+};
+
+
+
+
+
+_.extend(ChangeTypes.prototype, {
+
+
+
+    get: function(type){
+        if(!this.exists(type)){
+            throw new Error('Change &quot;' + type + '&quot; does not exist.')
+        }
+        return type;
+    },
+
+
+
+    validateData: function(type, data){
+        var schema = this.__getSchema(type);
+        if(schema === true){
+            return {data: 'NO_SCHEMA'}
+        }else if(schema === void 0){
+            return {data: 'NO_TYPE_DEFINED'}
+        }
+        var validator = new Validator(schema);
+        return {data: validator.check(data)};
+    },
+
+
+
+    __getSchema: function(type){
+        return this.__changeTypes[type];
+    },
+
+
+
+    exists: function(type){
+        if(type === '*') return true;
+        return !!this.__changeTypes[type];
+    },
+
+
+
+    getAll: function(){
+        return _.keys(this.__changeTypes);
+    },
+
+
+
+});
+
+
+
+
+module.exports = ChangeTypes;
+</pre>
+</body>
+</html>

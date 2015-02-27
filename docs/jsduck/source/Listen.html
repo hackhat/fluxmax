@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">var _ = require('lodash');
+
+
+
+
+<span id='core-Listen'>/**
+</span> * @class core.Listen
+ */
+var Listen = function(entityId, items){
+    this.__entityId = entityId;
+    this.__items    = items;
+};
+
+
+
+
+Listen.noop = function(){};
+
+
+
+
+
+_.extend(Listen.prototype, {
+
+
+
+    start: function(app, target){
+        this.__startOrEnd('start', app, target)
+    },
+
+
+
+    end: function(app, target){
+        this.__startOrEnd('end', app, target)
+    },
+
+
+
+    createMockObject: function(){
+        var mock = {};
+        this.__items.forEach(function(item){
+            var callbackName = item[3];
+            mock[callbackName] = Listen.noop;
+        })
+        return mock;
+    },
+
+
+
+    __startOrEnd: function(type, app, target){
+        this.__items.forEach(function(item){
+            var listenType       = item[0];
+            var listenToEntityId = item[1];
+            var listenToType     = item[2];
+            var callbackName     = item[3];
+            var fn;
+            if(listenType === 'batch'){
+                if(type === 'start'){
+                    fn = app.onBatch;
+                }else if(type === 'end'){
+                    fn = app.offBatch;
+                }else{
+                    throw new Error('Type not available.')
+                }
+            }else if(listenType === 'each'){
+                if(type === 'start'){
+                    fn = app.onEach;
+                }else if(type === 'end'){
+                    fn = app.offEach;
+                }else{
+                    throw new Error('Type not available.')
+                }
+            }else{
+                throw new Error('ListenTtype not available.')
+            }
+            if(!target[callbackName]){
+                throw new Error('Cant find method &quot;' + callbackName + '&quot; on entity &quot;' + this.__entityId + '&quot;.')
+            }
+            fn.call(
+                app,
+                this.__entityId,
+                listenToEntityId,
+                listenToType,
+                target[callbackName], // Binding will create a new function
+                callbackName,
+                target
+            )
+        }.bind(this))
+    }
+
+
+
+});
+
+
+
+
+module.exports = Listen;
+</pre>
+</body>
+</html>

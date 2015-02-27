@@ -3,7 +3,9 @@ var _ = require('lodash');
 
 
 
-
+/**
+ * @class core.Listen
+ */
 var Listen = function(entityId, items){
     this.__entityId = entityId;
     this.__items    = items;

@@ -20,3 +20,17 @@
 ## API
 
 Check the **[full API here](https://cdn.rawgit.com/hackhat/fluxmax/v0.0.1/docs/jsduck/index.html)**.
+
+
+
+## Rationale
+
+
+### Introduction
+
+There are 2 main concepts to understand:
+
+ - 1st phase: each;
+ - 2nd phase: batch;
+
+ The first phase is called `each` (because dispatches on `each` change) and the listeners receives the event as soon as it's dispatched. The second phase is called `batch` (because dispatches the events on `batch`) and the listeners receives the event only when the Fluxmax.emitBatchChanges method is called.
