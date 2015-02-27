@@ -1,0 +1,28 @@
+{
+  "name": "fluxmax",
+  "version": "0.0.1",
+  "description": "2 phase events: update stores then views. 1 way flow. Static event deps checker.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "npm prefix": "npm --userconfig=.npmrc"
+  },
+  "keywords": [
+    "flux",
+    "react.js",
+    "react",
+    "reactjs",
+    "2 phase",
+    "update",
+    "stores",
+    "1 way flow"
+  ],
+  "author": "hackhat",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hackhat/fluxmax.git"
+  }
+}
