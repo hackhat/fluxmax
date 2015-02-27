@@ -123,6 +123,7 @@ _.extend(Fluxmax.prototype, {
 
 
     /**
+     * Adds the instances of the entities as array.
      */
     addEntities: function(entities){
         entities.forEach(function(entity){

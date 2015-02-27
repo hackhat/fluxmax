@@ -34,3 +34,20 @@ There are 2 main concepts to understand:
  - 2nd phase: batch;
 
  The first phase is called `each` (because dispatches on `each` change) and the listeners receives the event as soon as it's dispatched. The second phase is called `batch` (because dispatches the events on `batch`) and the listeners receives the event only when the Fluxmax.emitBatchChanges method is called.
+
+
+## How to use
+
+```javascript
+var Fluxmax = require('fluxmax');
+var fluxmax = new Fluxmax.App();
+fluxmax.addEntities(instanceEntities);
+```
+
+### Create a store
+
+```javascript
+var FluxmaxStoreMixin = require('Fluxmax').StoreMixin;
+var BaseStore = function(){};
+_.extend(BaseStore.prototype, EventEmitter.prototype, FluxmaxStoreMixin, {});
+```

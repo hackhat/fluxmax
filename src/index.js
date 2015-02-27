@@ -1,1 +1,4 @@
-module.exports = require('./core/Fluxmax');
+module.exports = {
+    App        : require('./core/Fluxmax'),
+    StoreMixin : require('./helpers/StoreMixin'),
+}
