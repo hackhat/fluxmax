@@ -30,18 +30,23 @@ gulp.task("default", function(callback){
         'lodash' : 'lodash',
     }
 
+    var configs = {};
+
     // Development
-    var devConfig = Object.create(defaultConfig);
+    var devConfig = _.cloneDeep(defaultConfig);
+    configs.devConfig = devConfig;
     devConfig.debug = true;
     devConfig.output.filename  = 'Fluxmax.js';
 
     // Dev no lodash
-    var devNoLodashConfig = Object.create(devConfig);
+    var devNoLodashConfig = _.cloneDeep(devConfig);
+    configs.devNoLodashConfig = devNoLodashConfig;
     devNoLodashConfig.output.filename  = 'Fluxmax.nolodash.js';
     devNoLodashConfig.externals = externals;
 
     // Production
-    var prodConfig = Object.create(defaultConfig);
+    var prodConfig = _.cloneDeep(defaultConfig);
+    configs.prodConfig = prodConfig;
     prodConfig.output.filename = 'Fluxmax.min.js';
     prodConfig.plugins = prodConfig.plugins || [];
     prodConfig.plugins = prodConfig.plugins.concat(
@@ -59,21 +64,21 @@ gulp.task("default", function(callback){
     );
 
     // Production no lodash
-    var prodNoLodashConfig = Object.create(prodConfig);
-    prodNoLodashConfig.output.filename  = 'Fluxmax.nolodash.min.js';
+    var prodNoLodashConfig = _.cloneDeep(prodConfig);
+    configs.prodNoLodashConfig = prodNoLodashConfig;
+    prodNoLodashConfig.output.filename = 'Fluxmax.nolodash.min.js';
     prodNoLodashConfig.externals = externals;
 
     async.series(
-        _.map([
-            devConfig,
-            devNoLodashConfig,
-            prodConfig,
-            prodNoLodashConfig
-        ], function(config){
+        _.map(configs, function(config, name){
             return function(cb){
                 webpack(config, function(err, stats) {
+                    console.log('=====')
+                    console.log('=====')
+                    console.log(name)
+                    console.log('-----')
                     if(err) throw new gutil.PluginError("webpack:build", err);
-                    gutil.log("[webpack:build]", stats.toString({
+                    gutil.log(name, stats.toString({
                         colors: true
                     }));
                     cb();
