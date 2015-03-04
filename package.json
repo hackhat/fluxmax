@@ -27,6 +27,7 @@
     "url": "https://github.com/hackhat/fluxmax.git"
   },
   "devDependencies": {
+    "async": "^0.9.0",
     "gulp": "^3.8.11",
     "gutil": "^1.6.4",
     "webpack": "^1.7.2"

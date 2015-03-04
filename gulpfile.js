@@ -2,6 +2,8 @@ var gulp    = require('gulp');
 var path    = require('path');
 var webpack = require('webpack');
 var gutil   = require('gutil');
+var async   = require('async');
+var _       = require('lodash');
 
 
 
@@ -19,18 +21,24 @@ gulp.task("default", function(callback){
         }
     }
 
-    var cb = function(err, stats) {
-        if(err) throw new gutil.PluginError("webpack:build", err);
-        gutil.log("[webpack:build]", stats.toString({
-            colors: true
-        }));
+    // var cb =
+
+    var externals = {
+        '_'      : '_',
+        'lodash' : '_',
+        '_'      : 'lodash',
+        'lodash' : 'lodash',
     }
 
     // Development
     var devConfig = Object.create(defaultConfig);
     devConfig.debug = true;
     devConfig.output.filename  = 'Fluxmax.js';
-    webpack(devConfig, cb);
+
+    // Dev no lodash
+    var devNoLodashConfig = Object.create(devConfig);
+    devNoLodashConfig.output.filename  = 'Fluxmax.nolodash.js';
+    devNoLodashConfig.externals = externals;
 
     // Production
     var prodConfig = Object.create(defaultConfig);
@@ -49,5 +57,29 @@ gulp.task("default", function(callback){
             no_copyright  : true,
         })
     );
-    webpack(prodConfig, cb);
+
+    // Production no lodash
+    var prodNoLodashConfig = Object.create(prodConfig);
+    prodNoLodashConfig.output.filename  = 'Fluxmax.nolodash.min.js';
+    prodNoLodashConfig.externals = externals;
+
+    async.series(
+        _.map([
+            devConfig,
+            devNoLodashConfig,
+            prodConfig,
+            prodNoLodashConfig
+        ], function(config){
+            return function(cb){
+                webpack(config, function(err, stats) {
+                    if(err) throw new gutil.PluginError("webpack:build", err);
+                    gutil.log("[webpack:build]", stats.toString({
+                        colors: true
+                    }));
+                    cb();
+                })
+            }
+        }), function(){
+        console.log('All builds done.')
+    })
 });
