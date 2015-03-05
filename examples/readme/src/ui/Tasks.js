@@ -61,8 +61,14 @@ module.exports = React.createClass({
 
 
 
-    __onTaskClick: function(taskId){
+    __onTaskComplete: function(taskId){
         this.props.context.actions[displayName + '.completeTask'](taskId);
+    },
+
+
+
+    __onTaskUncomplete: function(taskId){
+        this.props.context.actions[displayName + '.uncompleteTask'](taskId);
     },
 
 
@@ -76,9 +82,10 @@ module.exports = React.createClass({
             }, 'Add random task'),
             this.props.context.stores.task.getAll().map(function(task){
                 return new Task({
-                    key     : task._id,
-                    task    : task,
-                    onClick : this.__onTaskClick,
+                    key          : task._id,
+                    task         : task,
+                    onComplete   : this.__onTaskComplete,
+                    onUncomplete : this.__onTaskUncomplete,
                 });
             }.bind(this))
         )

@@ -24,11 +24,13 @@ E.meta = {
     changeTypes: [
         'added',
         'completed',
+        'uncompleted',
     ],
     // To what events this entity listens to.
     listeners: [
         ['each', 'actions', 'ui.tasks.addTask', '__onUITaskAdd'],
         ['each', 'actions', 'ui.tasks.completeTask', '__onUITaskComplete'],
+        ['each', 'actions', 'ui.tasks.uncompleteTask', '__onUITaskUncomplete'],
     ]
 }
 E.listen = App.addMetaEntity(E.meta);
@@ -62,6 +64,15 @@ _.extend(TaskStore.prototype, BaseStore.prototype, {
         if(task.completed) return;
         task.completed = true;
         this.emitChange('completed', task);
+    },
+
+
+
+    __onUITaskUncomplete: function(taskId){
+        var task = this.getTaskById(taskId);
+        if(!task.completed) return;
+        task.completed = false;
+        this.emitChange('uncompleted', task);
     },
 
 

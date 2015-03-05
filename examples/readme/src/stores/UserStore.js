@@ -34,6 +34,7 @@ E.meta = {
     listeners: [
         ['each', 'store.task', 'added', '__onTaskAdded'],
         ['each', 'store.task', 'completed', '__onTaskCompleted'],
+        ['each', 'store.task', 'uncompleted', '__onTaskUncompleted'],
     ]
 }
 E.listen = App.addMetaEntity(E.meta);
@@ -60,6 +61,12 @@ _.extend(UserStore.prototype, BaseStore.prototype, {
 
     __onTaskCompleted: function(){
         this.__increasePoints(10);
+    },
+
+
+
+    __onTaskUncompleted: function(){
+        this.__increasePoints(-10);
     },
 
 

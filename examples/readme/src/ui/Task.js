@@ -38,7 +38,19 @@ module.exports = React.createClass({
 
     getDefaultProps: function(){
         return {
-            onClick: noop
+            onComplete   : noop,
+            onUncomplete : noop,
+        }
+    },
+
+
+
+    __onClick: function(){
+        var task = this.props.task;
+        if(task.completed){
+            this.props.onUncomplete(task._id);
+        }else{
+            this.props.onComplete(task._id);
         }
     },
 
@@ -50,7 +62,7 @@ module.exports = React.createClass({
                 root      : true,
                 completed : this.props.task.completed
             }),
-            onClick : this.props.onClick.bind(null, this.props.task._id),
+            onClick: this.__onClick
         }, 'Task: ' + this.props.task.title)
     }
 
