@@ -15,6 +15,8 @@ var TaskStore = function(){
 
 
 
+
+
 var E = TaskStore; // "E" from "Entity".
 E.meta = {
     // Unique id of this entity.
@@ -31,6 +33,8 @@ E.meta = {
     ]
 }
 E.listen = App.addMetaEntity(E.meta);
+
+
 
 
 

@@ -11,6 +11,8 @@ var BaseStore = function(){
 
 
 
+
+
 _.extend(BaseStore.prototype, EventEmitter.prototype, FluxmaxStoreMixin, {
 
 });
