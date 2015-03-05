@@ -13,6 +13,8 @@ var UserStore = function(){
 
 
 
+
+
 var E = UserStore; // "E" from "Entity".
 E.meta = {
     // Unique id of this entity.
@@ -35,6 +37,8 @@ E.meta = {
     ]
 }
 E.listen = App.addMetaEntity(E.meta);
+
+
 
 
 
