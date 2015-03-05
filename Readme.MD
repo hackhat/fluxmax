@@ -5,8 +5,8 @@
 **Quick features:**
 
  - Update stores properly and naturally;
+ - Static event deps checker and output (a typo in an event is caught at boot);
  - 1 way flow like flux by Facebook;
- - Static event deps checker and output;
 
 
 
