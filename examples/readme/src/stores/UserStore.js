@@ -70,7 +70,7 @@ _.extend(UserStore.prototype, BaseStore.prototype, {
 
 
 
-    __onTaskUncompleted: function(){
+    __onTaskUncompleted: function(task){
         this.__increasePoints(-task.pointsOnComplete);
     },
 
