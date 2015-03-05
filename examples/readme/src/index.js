@@ -8,7 +8,8 @@ var Actions  = require('./Actions');
 
 
 // Stores and app config.
-var app      = new Fluxmax.App();
+var App     = Fluxmax.App;
+var app     = new App();
 var actions = new Actions(app);
 
 var TaskStore = require('./stores/TaskStore');
@@ -51,7 +52,7 @@ SmartCSS.injectStyles();
 
 
 // Debug app
-app.checkDependencies();
+App.checkDependencies();
 var requestAnimationFrame = require('requestanimationframe');
 var scheduleNextRAF = function(){
     requestAnimationFrame(function(){

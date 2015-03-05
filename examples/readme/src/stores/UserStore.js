@@ -6,6 +6,7 @@ var App       = require('fluxmax').App;
 
 
 var UserStore = function(){
+    BaseStore.apply(this, arguments);
     this.Class = E;
     this.__points = 0;
 };

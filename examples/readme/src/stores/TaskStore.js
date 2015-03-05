@@ -6,6 +6,7 @@ var App       = require('fluxmax').App;
 
 
 var TaskStore = function(){
+    BaseStore.apply(this, arguments);
     this.Class = E;
     this.__tasks = [{
         title: 'test',
