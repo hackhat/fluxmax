@@ -14,10 +14,9 @@ var UserStore = require('./stores/UserStore');
 var App     = Fluxmax.App;
 var app     = new App();
 var actions = new Actions(app);
-var stores = {
-    task : new TaskStore(),
-    user : new UserStore(),
-}
+var stores = {};
+stores.task = new TaskStore({stores: stores});
+stores.user = new UserStore({stores: stores});
 var instanceEntities = [
     stores.task,
     stores.user,

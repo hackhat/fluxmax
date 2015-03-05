@@ -1,11 +1,16 @@
 var BaseStore = require('./BaseStore');
 var App       = require('fluxmax').App;
+var _         = require('lodash');
 
 
 
 
 
-var TaskStore = function(){
+var TaskStore = function(options){
+    options = _.extend({
+        stores: void 0,
+    }, options);
+    this.__stores = options.stores;
     BaseStore.apply(this, arguments);
     this.Class = TaskStore;
     this.__tasks = [];
@@ -31,6 +36,7 @@ E.meta = {
         ['each', 'actions', 'ui.tasks.addTask', '__onUITaskAdd'],
         ['each', 'actions', 'ui.tasks.completeTask', '__onUITaskComplete'],
         ['each', 'actions', 'ui.tasks.uncompleteTask', '__onUITaskUncomplete'],
+        ['each', 'store.user', 'pointsChanged', '__onUserPointsChanged'],
     ]
 }
 E.listen = App.addMetaEntity(E.meta);
@@ -59,9 +65,31 @@ _.extend(TaskStore.prototype, BaseStore.prototype, {
 
 
 
+    __onUserPointsChanged: function(){
+        this.__refreshAutoTasks();
+    },
+
+
+
+    __refreshAutoTasks: function(){
+        var points = this.__stores.user.getPoints();
+        this.__tasks.forEach(function(task){
+            // If has been manually complete or uncompleted then don't change.
+            if(task.manual) return;
+            if(task.completed) return;
+            if(task.minPoints <= points){
+                task.completed = true;
+                this.emitChange('completed', task);
+            }
+        }.bind(this))
+    },
+
+
+
     __onUITaskComplete: function(taskId){
         var task = this.getTaskById(taskId);
         if(task.completed) return;
+        task.manual = true;
         task.completed = true;
         this.emitChange('completed', task);
     },
@@ -71,6 +99,7 @@ _.extend(TaskStore.prototype, BaseStore.prototype, {
     __onUITaskUncomplete: function(taskId){
         var task = this.getTaskById(taskId);
         if(!task.completed) return;
+        task.manual = true;
         task.completed = false;
         this.emitChange('uncompleted', task);
     },

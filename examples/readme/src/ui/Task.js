@@ -11,13 +11,14 @@ var css = new SmartCSS();
 
 css.setClass('root', {
     maxWidth     : '320px',
-    lineHeight   : '35px',
+    lineHeight   : '25px',
     cursor       : 'pointer',
-    padding      : '20px',
+    padding      : '7px 15px',
     borderBottom : '1px solid hsl(139, 56%, 90%)',
     boxSizing    : 'border-box',
     fontFamily   : 'sans-serif',
     transition   : 'all 0.2s',
+    color        : 'hsl(0, 0%, 20%)',
     ':hover': {
         background: 'hsl(139, 56%, 90%)',
     }
@@ -36,6 +37,25 @@ css.setClass('completed', {
 
 
 
+css.setClass('warning', {
+    transition : 'all 0.2s',
+    color      : 'hsl(139, 56%, 75%)'
+})
+css.setClass('warningHover', {
+    color: 'hsl(139, 56%, 55%)'
+})
+
+
+
+css.setClass('warningCompleted', {
+    transition : 'all 0.2s',
+    color      : 'hsl(139, 100%, 80%)'
+})
+css.setClass('warningCompletedHover', {
+    color      : 'hsl(139, 100%, 95%)'
+})
+
+
 
 
 var displayName = 'ui.task';
@@ -50,6 +70,14 @@ module.exports = React.createClass({
 
 
     displayName: displayName,
+
+
+
+    getInitialState: function(){
+        return {
+            hover: false
+        }
+    },
 
 
 
@@ -73,14 +101,44 @@ module.exports = React.createClass({
 
 
 
+    __onMouseOver: function(){
+        this.setState({hover: true});
+    },
+
+
+
+    __onMouseOut: function(){
+        this.setState({hover: false});
+    },
+
+
+
     render: function(){
+        var task = this.props.task;
         return React.DOM.div({
             className : css.getClasses({
                 root      : true,
-                completed : this.props.task.completed
+                completed : task.completed
             }),
-            onClick: this.__onClick
-        }, this.props.task.title)
+            onClick     : this.__onClick,
+            onMouseOver : this.__onMouseOver,
+            onMouseOut  : this.__onMouseOut,
+        },
+            React.DOM.span({}, task.title),
+            React.DOM.br(),
+            !task.completed && !task.manual ? React.DOM.span({
+                className: css.getClasses({
+                    warning      : true,
+                    warningHover : this.state.hover,
+                }),
+            }, 'Automatically completed at: ' + task.minPoints + ' points.') : void 0,
+            task.completed ? React.DOM.span({
+                className: css.getClasses({
+                    warningCompleted      : true,
+                    warningCompletedHover : this.state.hover,
+                }),
+            }, (task.manual ? 'Manually' : 'Automatically') + ' completed!') : void 0
+        )
     }
 
 

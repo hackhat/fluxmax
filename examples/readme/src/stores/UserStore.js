@@ -1,11 +1,16 @@
 var BaseStore = require('./BaseStore');
 var App       = require('fluxmax').App;
+var _         = require('lodash');
 
 
 
 
 
-var UserStore = function(){
+var UserStore = function(options){
+    options = _.extend({
+        stores: void 0,
+    }, options);
+    this.__stores = options.stores;
     BaseStore.apply(this, arguments);
     this.Class = UserStore;
     this.__points = 0;
@@ -59,14 +64,14 @@ _.extend(UserStore.prototype, BaseStore.prototype, {
 
 
 
-    __onTaskCompleted: function(){
-        this.__increasePoints(10);
+    __onTaskCompleted: function(task){
+        this.__increasePoints(task.pointsOnComplete);
     },
 
 
 
     __onTaskUncompleted: function(){
-        this.__increasePoints(-10);
+        this.__increasePoints(-task.pointsOnComplete);
     },
 
 
