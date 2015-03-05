@@ -28,6 +28,14 @@ gulp.task("webpack-dev-server", function(callback){
             filename      : "[chunkhash].js",
             chunkFilename : "[id].[chunkhash].js"
         },
+        module: {
+            loaders: [
+                {
+                    test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$/,
+                    loader: "url-loader?limit=10000"
+                },
+            ]
+        },
         resolve: {
             alias: {
                 fluxmax         : absPath('../../src/index'),

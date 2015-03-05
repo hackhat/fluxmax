@@ -12,6 +12,7 @@ var css = new SmartCSS();
 
 
 css.setClass('root', {
+    backgroundImage : 'url(' + require('../iphoneLayout.png') + ')',
 })
 
 

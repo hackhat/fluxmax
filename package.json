@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "async": "^0.9.0",
+    "file-loader": "^0.8.1",
     "gulp": "^3.8.11",
     "gutil": "^1.6.4",
     "html-webpack-plugin": "^1.1.0",
@@ -35,6 +36,7 @@
     "react": "^0.12.2",
     "requestanimationframe": "0.0.22",
     "smart-css": "0.0.6",
+    "url-loader": "^0.5.5",
     "webpack": "^1.7.2",
     "webpack-dev-server": "^1.7.0",
     "wolfy87-eventemitter": "^4.2.11"
