@@ -79,7 +79,7 @@ module.exports = React.createClass({
                 completed : this.props.task.completed
             }),
             onClick: this.__onClick
-        }, 'Task: ' + this.props.task.title)
+        }, this.props.task.title)
     }
 
 
