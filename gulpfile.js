@@ -1,5 +1,4 @@
 var gulp    = require('gulp');
-var path    = require('path');
 var webpack = require('webpack');
 var gutil   = require('gutil');
 var async   = require('async');
@@ -12,14 +11,7 @@ var _       = require('lodash');
 gulp.task("default", function(callback){
 
     // Default config.
-    var defaultConfig = {
-        entry: './src/index',
-        output: {
-            libraryTarget : "var",
-            library       : "Fluxmax",
-            path          : path.join(__dirname, './dist'),
-        }
-    }
+    var defaultConfig = require('./webpack.config');
 
     // var cb =
 
