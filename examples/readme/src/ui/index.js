@@ -16,8 +16,8 @@ css.setClass('root', {
 
 
 
-var displayName = 'root';
-var listen = App.listen('ui.' + displayName, [
+var displayName = 'ui.root';
+var listen = App.listen(displayName, [
 ]);
 
 

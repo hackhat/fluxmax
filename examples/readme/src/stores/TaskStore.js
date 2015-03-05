@@ -25,6 +25,8 @@ E.meta = {
     ],
     // To what events this entity listens to.
     listeners: [
+
+        ['each', 'actions', 'ui.tasks.addTask', '__onUITaskAdded'],
     ]
 }
 E.listen = App.addMetaEntity(E.meta);
@@ -37,6 +39,12 @@ _.extend(TaskStore.prototype, BaseStore.prototype, {
 
     getAll: function(){
         return this.__tasks.slice();
+    },
+
+
+
+    __onUITaskAdded: function(task){
+        this.__add(task);
     },
 
 

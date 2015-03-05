@@ -16,8 +16,8 @@ css.setClass('root', {
 
 
 
-var displayName = 'root';
-var listen = App.listen('ui.' + displayName, [
+var displayName = 'ui.tasks';
+var listen = App.listen(displayName, [
     ['batch', 'store.task', '*', '__onChange']
 ]);
 
@@ -51,10 +51,21 @@ module.exports = React.createClass({
 
 
 
+    __onAddRandomTaskButtonClicked: function(){
+        this.props.context.actions[displayName + '.addTask']({
+            title: Math.random()
+        });
+    },
+
+
+
     render: function(){
         return React.DOM.div({
             className: css.getClass('root')
         },
+            React.DOM.button({
+                onClick: this.__onAddRandomTaskButtonClicked,
+            }, 'Add random task'),
             this.props.context.stores.task.getAll().map(function(task){
                 return React.DOM.p({}, task.title)
             })
