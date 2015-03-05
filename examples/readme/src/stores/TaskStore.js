@@ -59,6 +59,7 @@ _.extend(TaskStore.prototype, BaseStore.prototype, {
 
     __onUITaskComplete: function(taskId){
         var task = this.getTaskById(taskId);
+        if(task.completed) return;
         task.completed = true;
         this.emitChange('completed', task);
     },
