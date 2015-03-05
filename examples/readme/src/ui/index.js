@@ -1,8 +1,8 @@
 var React    = require('react');
 var SmartCSS = require('smart-css');
 var App      = require('fluxmax').App;
-var Tasks    = require('./Tasks');
-var User     = require('./User');
+var Tasks    = React.createFactory(require('./Tasks'));
+var User     = React.createFactory(require('./User'));
 
 
 

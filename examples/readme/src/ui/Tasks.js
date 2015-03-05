@@ -1,7 +1,7 @@
 var React    = require('react');
 var SmartCSS = require('smart-css');
 var App      = require('fluxmax').App;
-var Task     = require('./Task');
+var Task     = React.createFactory(require('./Task'));
 
 
 
@@ -76,6 +76,7 @@ module.exports = React.createClass({
             }, 'Add random task'),
             this.props.context.stores.task.getAll().map(function(task){
                 return new Task({
+                    key     : task._id,
                     task    : task,
                     onClick : this.__onTaskClick,
                 });

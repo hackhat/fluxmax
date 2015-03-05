@@ -50,7 +50,7 @@ module.exports = React.createClass({
                 root      : true,
                 completed : this.props.task.completed
             }),
-            onClick   : this.props.onClick.bind(this, this.props.task._id),
+            onClick : this.props.onClick.bind(null, this.props.task._id),
         }, 'Task: ' + this.props.task.title)
     }
 

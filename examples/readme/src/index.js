@@ -41,7 +41,7 @@ var data = {
 
 
 // React render.
-React.renderComponent(new RootUI(data), document.getElementById('root'), function(){
+React.render(React.createElement(RootUI, data), document.getElementById('root'), function(){
     console.log('React root UI has been added to DOM.')
 });
 
