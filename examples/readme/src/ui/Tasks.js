@@ -51,9 +51,10 @@ module.exports = React.createClass({
 
 
 
-    __onAddRandomTaskButtonClicked: function(){
+    __onAddTaskButtonClicked: function(){
+        var taskTitle = prompt("Enter task title", Math.random());
         this.props.context.actions[displayName + '.addTask']({
-            title: Math.random()
+            title: taskTitle
         });
     },
 
@@ -64,7 +65,7 @@ module.exports = React.createClass({
             className: css.getClass('root')
         },
             React.DOM.button({
-                onClick: this.__onAddRandomTaskButtonClicked,
+                onClick: this.__onAddTaskButtonClicked,
             }, 'Add random task'),
             this.props.context.stores.task.getAll().map(function(task){
                 return React.DOM.p({}, task.title)
