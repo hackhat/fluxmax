@@ -34,14 +34,13 @@ module.exports = React.createClass({
 
 
     componentDidMount: function(){
-        listen.start(this.props.data.controller, this);
+        listen.start(this.props.context.app, this);
     },
 
 
 
-
     componentWillUnmount: function(){
-        listen.end(this.props.data.controller, this);
+        listen.end(this.props.context.app, this);
     },
 
 
@@ -61,6 +60,9 @@ module.exports = React.createClass({
             })
         )
     }
+
+
+
 });
 
 
