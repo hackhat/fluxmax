@@ -53,7 +53,7 @@ fluxmax.addEntities(instanceEntities);
 First we need to create a base store to inherit from in the implementation/real stores:
 
 ```javascript
-var FluxmaxStoreMixin = require('Fluxmax').StoreMixin;
+var FluxmaxStoreMixin = require('fluxmax').StoreMixin;
 var BaseStore = function(){};
 _.extend(BaseStore.prototype, EventEmitter.prototype, FluxmaxStoreMixin, {});
 ```
@@ -62,10 +62,11 @@ Then we need to create the real store:
 
 ```javascript
 var BaseStore = require('BaseStore');
+var App       = require('fluxmax').App;
 var CarStore = function(){
     this.__cars = [];
 };
-var E = CarStore; // "E" from "Entity". 
+var E = CarStore; // "E" from "Entity".
 E.meta = {
     // Unique id of this entity.
     id: 'store.car',

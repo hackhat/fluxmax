@@ -30,7 +30,8 @@ gulp.task("webpack-dev-server", function(callback){
         },
         resolve: {
             alias: {
-                fluxmax: absPath('../../src/index')
+                fluxmax         : absPath('../../src/index'),
+                'event-emitter' : 'wolfy87-eventemitter',
             },
         },
         plugins: [

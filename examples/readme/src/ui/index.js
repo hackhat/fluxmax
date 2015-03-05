@@ -1,0 +1,65 @@
+var React    = require('react');
+var SmartCSS = require('smart-css');
+var App      = require('fluxmax').App;
+var Tasks    = require('./Tasks');
+
+
+
+
+var css = new SmartCSS();
+
+
+
+css.setClass('root', {
+})
+
+
+
+
+var displayName = 'root';
+var listen = App.listen('ui.' + displayName, [
+]);
+
+
+
+
+
+module.exports = React.createClass({
+
+
+
+    displayName: displayName,
+
+
+
+    componentDidMount: function(){
+        listen.start(this.props.data.controller, this);
+    },
+
+
+
+
+    componentWillUnmount: function(){
+        listen.end(this.props.data.controller, this);
+    },
+
+
+
+    __onChange: function(){
+        this.forceUpdate();
+    },
+
+
+
+    render: function(){
+        return React.DOM.div({
+            className: css.getClass('root')
+        },
+            new Tasks({
+                context: this.props.context
+            })
+        )
+    }
+});
+
+
