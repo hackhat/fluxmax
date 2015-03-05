@@ -28,6 +28,11 @@ gulp.task("webpack-dev-server", function(callback){
             filename      : "[chunkhash].js",
             chunkFilename : "[id].[chunkhash].js"
         },
+        resolve: {
+            alias: {
+                Fluxmax: absPath('../../src/index')
+            },
+        },
         plugins: [
             new HtmlWebpackPlugin({
                 template : './index.html',

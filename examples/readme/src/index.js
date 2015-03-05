@@ -1,1 +1,2 @@
-alert('hy')
+var Fluxmax = require('Fluxmax');
+debugger
