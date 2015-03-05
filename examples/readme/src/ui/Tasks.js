@@ -61,8 +61,8 @@ module.exports = React.createClass({
 
 
 
-    __onTaskClick: function(){
-        debugger
+    __onTaskClick: function(taskId){
+        this.props.context.actions[displayName + '.completeTask'](taskId);
     },
 
 
@@ -79,7 +79,7 @@ module.exports = React.createClass({
                     task    : task,
                     onClick : this.__onTaskClick,
                 });
-            })
+            }.bind(this))
         )
     }
 

@@ -19,6 +19,7 @@ E.meta = {
 
     changeTypes: [
         'ui.tasks.addTask',
+        'ui.tasks.completeTask',
     ],
 
     listeners: [

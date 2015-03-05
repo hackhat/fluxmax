@@ -14,6 +14,12 @@ css.setClass('root', {
 
 
 
+css.setClass('completed', {
+    background: 'green'
+})
+
+
+
 
 var displayName = 'ui.task';
 var noop = function(){}
@@ -40,8 +46,11 @@ module.exports = React.createClass({
 
     render: function(){
         return React.DOM.p({
-            className : css.getClass('root'),
-            onClick   : this.props.onClick,
+            className : css.getClasses({
+                root      : true,
+                completed : this.props.task.completed
+            }),
+            onClick   : this.props.onClick.bind(this, this.props.task._id),
         }, 'Task: ' + this.props.task.title)
     }
 

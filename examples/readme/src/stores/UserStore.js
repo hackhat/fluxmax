@@ -33,7 +33,7 @@ E.meta = {
     // To what events this entity listens to.
     listeners: [
         ['each', 'store.task', 'added', '__onTaskAdded'],
-        ['each', 'store.task', 'done', '__onTaskDone'],
+        ['each', 'store.task', 'completed', '__onTaskCompleted'],
     ]
 }
 E.listen = App.addMetaEntity(E.meta);
@@ -58,7 +58,7 @@ _.extend(UserStore.prototype, BaseStore.prototype, {
 
 
 
-    __onTaskDone: function(){
+    __onTaskCompleted: function(){
         this.__increasePoints(10);
     },
 
