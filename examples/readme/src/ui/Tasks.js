@@ -1,6 +1,7 @@
 var React    = require('react');
 var SmartCSS = require('smart-css');
 var App      = require('fluxmax').App;
+var Task     = require('./Task');
 
 
 
@@ -60,6 +61,12 @@ module.exports = React.createClass({
 
 
 
+    __onTaskClick: function(){
+        debugger
+    },
+
+
+
     render: function(){
         return React.DOM.div({
             className: css.getClass('root')
@@ -68,7 +75,10 @@ module.exports = React.createClass({
                 onClick: this.__onAddTaskButtonClicked,
             }, 'Add random task'),
             this.props.context.stores.task.getAll().map(function(task){
-                return React.DOM.p({}, task.title)
+                return new Task({
+                    task    : task,
+                    onClick : this.__onTaskClick,
+                });
             })
         )
     }

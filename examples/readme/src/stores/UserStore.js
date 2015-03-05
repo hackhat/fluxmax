@@ -46,6 +46,12 @@ _.extend(UserStore.prototype, BaseStore.prototype, {
 
 
 
+    getPoints: function(){
+        return this.__points;
+    },
+
+
+
     __onTaskAdded: function(){
         this.__increasePoints(1);
     },

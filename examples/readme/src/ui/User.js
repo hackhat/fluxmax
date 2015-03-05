@@ -1,8 +1,7 @@
 var React    = require('react');
 var SmartCSS = require('smart-css');
 var App      = require('fluxmax').App;
-var Tasks    = require('./Tasks');
-var User     = require('./User');
+
 
 
 
@@ -17,8 +16,9 @@ css.setClass('root', {
 
 
 
-var displayName = 'ui.root';
+var displayName = 'ui.user';
 var listen = App.listen(displayName, [
+    ['batch', 'store.user', '*', '__onChange']
 ]);
 
 
@@ -55,12 +55,7 @@ module.exports = React.createClass({
         return React.DOM.div({
             className: css.getClass('root')
         },
-            new User({
-                context: this.props.context
-            }),
-            new Tasks({
-                context: this.props.context
-            })
+            React.DOM.p({}, 'User\'s points: ' + this.props.context.stores.user.getPoints())
         )
     }
 

@@ -8,9 +8,7 @@ var App       = require('fluxmax').App;
 var TaskStore = function(){
     BaseStore.apply(this, arguments);
     this.Class = TaskStore;
-    this.__tasks = [{
-        title: 'test',
-    }];
+    this.__tasks = [];
 };
 
 
