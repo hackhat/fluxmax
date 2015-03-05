@@ -27,6 +27,7 @@ css.setClass('button', {
     marginBottom : '1px',
     boxSizing    : 'border-box',
     cursor       : 'pointer',
+    transition   : 'all 0.2s',
     ':hover': {
     background   : 'hsl(196, 100%, 40%)',
     }

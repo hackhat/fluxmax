@@ -17,6 +17,7 @@ css.setClass('root', {
     borderBottom : '1px solid hsl(139, 56%, 90%)',
     boxSizing    : 'border-box',
     fontFamily   : 'sans-serif',
+    transition   : 'all 0.2s',
     ':hover': {
         background: 'hsl(139, 56%, 90%)',
     }
