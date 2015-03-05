@@ -7,7 +7,7 @@ var App       = require('fluxmax').App;
 
 var TaskStore = function(){
     BaseStore.apply(this, arguments);
-    this.Class = E;
+    this.Class = TaskStore;
     this.__tasks = [{
         title: 'test',
     }];
@@ -28,7 +28,6 @@ E.meta = {
     ],
     // To what events this entity listens to.
     listeners: [
-
         ['each', 'actions', 'ui.tasks.addTask', '__onUITaskAdded'],
     ]
 }
@@ -56,6 +55,7 @@ _.extend(TaskStore.prototype, BaseStore.prototype, {
 
     __add: function(task){
         this.__tasks.push(task);
+        this.emitChange('added', task);
     },
 
 

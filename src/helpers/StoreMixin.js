@@ -2,9 +2,9 @@ module.exports = {
 
 
 
-    mount: function(){
+    mount: function(app){
         if(!this.Class) return console.log('This store is missing Class.');
-        this.Class.listen.start(this.data.controller, this);
+        this.Class.listen.start(app, this);
     },
 
 

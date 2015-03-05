@@ -10,7 +10,14 @@ var ChangeTypes     = require('./ChangeTypes');
 /**
  * @class core.Fluxmax
  */
-var Fluxmax = function(){
+var Fluxmax = function(options){
+    options = _.extend({
+        isSingleton: false,
+    }, options)
+    // Is good to know if is a singleton in order to avoid
+    // nasty bugs when confusing the singleton with the
+    // instance app.
+    this.__isSingleton           = options.isSingleton;
     this.__eachChange            = new Context();
     this.__batchChange           = new Context();
     this.__entities              = [];
@@ -40,7 +47,9 @@ Fluxmax.__instance = void 0;
  */
 Fluxmax.getInstance = function(){
     if(!Fluxmax.__instance){
-        Fluxmax.__instance = new Fluxmax();
+        Fluxmax.__instance = new Fluxmax({
+            isSingleton: true
+        });
     }
     return Fluxmax.__instance;
 }

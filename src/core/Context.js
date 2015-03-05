@@ -107,16 +107,10 @@ _.extend(Context.prototype, {
         // We add the change before dispatching to have the changes in the correct order.
         this.__changes.push(payload);
         if(this.__listenersBySrc[payload.src]){
-            if(this.__listenersBySrc[payload.src][payload.type]){
-                this.__listenersBySrc[payload.src][payload.type].forEach(function(listener){
-                    listeners.push(listener);
-                    listener.runCb.call(listener.target, payload.data);
-                })
-            }
-        }
-        if(this.__listenersBySrc[payload.src]){
-            if(this.__listenersBySrc[payload.src]['*']){
-                this.__listenersBySrc[payload.src]['*'].forEach(function(listener){
+            var listenersBySrc = this.__listenersBySrc[payload.src][payload.type] ||
+                            this.__listenersBySrc[payload.src]["*"];
+            if(listenersBySrc){
+                listenersBySrc.forEach(function(listener){
                     listeners.push(listener);
                     listener.runCb.call(listener.target, payload.data);
                 })
