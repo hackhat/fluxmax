@@ -13,7 +13,7 @@ css.setClass('root', {
     maxWidth     : '320px',
     lineHeight   : '35px',
     cursor       : 'pointer',
-    padding      : '10px',
+    padding      : '20px',
     borderBottom : '1px solid hsl(139, 56%, 90%)',
     boxSizing    : 'border-box',
     fontFamily   : 'sans-serif',

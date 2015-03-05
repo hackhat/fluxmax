@@ -27,6 +27,8 @@ css.setClass('app', {
     width      : '320px',
     height     : '550px',
     background : 'hsl(0, 100%, 100%)',
+    overflowY  : 'overlay',
+    overflowX  : 'hidden',
 })
 
 
