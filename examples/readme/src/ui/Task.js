@@ -13,7 +13,7 @@ css.setClass('root', {
     maxWidth     : '320px',
     lineHeight   : '25px',
     cursor       : 'pointer',
-    padding      : '7px 15px',
+    padding      : '7px 15px 5px 15px',
     borderBottom : '1px solid hsl(139, 56%, 90%)',
     boxSizing    : 'border-box',
     fontFamily   : 'sans-serif',
@@ -38,21 +38,30 @@ css.setClass('completed', {
 
 
 css.setClass('warning', {
-    transition : 'all 0.2s',
-    color      : 'hsl(139, 56%, 75%)'
+    transition     : 'all 0.2s',
+    color          : 'hsl(139, 56%, 75%)',
+    borderTop      : '1px solid hsl(139, 56%, 75%)',
+    display        : 'inline-block',
+    width          : 'calc(100% - 0px)',
+    paddingTop     : '5px',
+    marginTop      : '5px',
+    fontSize       : '12px',
 })
 css.setClass('warningHover', {
-    color: 'hsl(139, 56%, 55%)'
+    color          : 'hsl(139, 56%, 55%)',
+    borderTopColor : 'hsl(139, 56%, 55%)',
 })
 
 
 
 css.setClass('warningCompleted', {
-    transition : 'all 0.2s',
-    color      : 'hsl(139, 100%, 80%)'
+    transition     : 'all 0.2s',
+    color          : 'hsl(139, 100%, 80%)',
+    borderTopColor : 'hsl(139, 100%, 80%)',
 })
 css.setClass('warningCompletedHover', {
-    color      : 'hsl(139, 100%, 95%)'
+    color          : 'hsl(139, 100%, 95%)',
+    borderTopColor : 'hsl(139, 100%, 95%)',
 })
 
 
@@ -134,10 +143,11 @@ module.exports = React.createClass({
             }, 'Automatically completed at: ' + task.minPoints + ' points.') : void 0,
             task.completed ? React.DOM.span({
                 className: css.getClasses({
+                    warning               : true,
                     warningCompleted      : true,
                     warningCompletedHover : this.state.hover,
                 }),
-            }, (task.manual ? 'Manually' : 'Automatically') + ' completed!') : void 0
+            }, (task.manual ? 'Manually' : 'Automatically') + ' completed and earned ' + task.pointsOnComplete + ' points!') : void 0
         )
     }
 
