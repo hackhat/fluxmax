@@ -11,6 +11,16 @@ var css = new SmartCSS();
 
 
 css.setClass('root', {
+    width        : '320px',
+    padding      : '13px',
+    border       : '0',
+    background   : 'hsl(196, 100%, 50%)',
+    color        : 'white',
+    fontSize     : '26px',
+    outline      : 'none',
+    marginBottom : '1px',
+    fontFamily   : 'sans-serif',
+    boxSizing    : 'border-box'
 })
 
 
@@ -54,9 +64,7 @@ module.exports = React.createClass({
     render: function(){
         return React.DOM.div({
             className: css.getClass('root')
-        },
-            React.DOM.p({}, 'User\'s points: ' + this.props.context.stores.user.getPoints())
-        )
+        }, 'User\'s points: ' + this.props.context.stores.user.getPoints())
     }
 
 

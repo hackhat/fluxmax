@@ -16,6 +16,24 @@ css.setClass('root', {
 
 
 
+css.setClass('button', {
+    width        : '320px',
+    padding      : '13px',
+    border       : '0',
+    background   : 'hsl(196, 100%, 50%)',
+    color        : 'white',
+    fontSize     : '26px',
+    outline      : 'none',
+    marginBottom : '1px',
+    boxSizing    : 'border-box',
+    cursor       : 'pointer',
+    ':hover': {
+    background   : 'hsl(196, 100%, 40%)',
+    }
+})
+
+
+
 
 var displayName = 'ui.tasks';
 var listen = App.listen(displayName, [
@@ -78,8 +96,9 @@ module.exports = React.createClass({
             className: css.getClass('root')
         },
             React.DOM.button({
+                className: css.getClass('button'),
                 onClick: this.__onAddTaskButtonClicked,
-            }, 'Add random task'),
+            }, 'Add task'),
             this.props.context.stores.task.getAll().map(function(task){
                 return new Task({
                     key          : task._id,

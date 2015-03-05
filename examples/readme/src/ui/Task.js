@@ -10,13 +10,29 @@ var css = new SmartCSS();
 
 
 css.setClass('root', {
+    maxWidth     : '320px',
+    lineHeight   : '35px',
+    cursor       : 'pointer',
+    padding      : '10px',
+    borderBottom : '1px solid hsl(139, 56%, 90%)',
+    boxSizing    : 'border-box',
+    fontFamily   : 'sans-serif',
+    ':hover': {
+        background: 'hsl(139, 56%, 90%)',
+    }
 })
 
 
 
 css.setClass('completed', {
-    background: 'green'
+    background   : 'hsl(139, 56%, 50%)',
+    color        : 'hsl(0, 100%, 100%)',
+    borderBottom : '1px solid hsl(0, 100%, 100%)',
+    ':hover': {
+        background: 'hsl(139, 56%, 60%)'
+    }
 })
+
 
 
 
@@ -57,7 +73,7 @@ module.exports = React.createClass({
 
 
     render: function(){
-        return React.DOM.p({
+        return React.DOM.div({
             className : css.getClasses({
                 root      : true,
                 completed : this.props.task.completed
