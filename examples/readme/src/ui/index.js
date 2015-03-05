@@ -12,7 +12,21 @@ var css = new SmartCSS();
 
 
 css.setClass('root', {
-    backgroundImage : 'url(' + require('../iphoneLayout.png') + ')',
+    backgroundImage : 'url(' + require('../iphone.jpg') + ')',
+    width           : '366px',
+    height          : '778px',
+    margin          : '0 auto',
+})
+
+
+
+css.setClass('app', {
+    marginLeft : '25px',
+    marginTop  : '126px',
+    position   : 'absolute',
+    width      : '320px',
+    height     : '550px',
+    background : 'hsl(0, 100%, 100%)',
 })
 
 
@@ -56,12 +70,17 @@ module.exports = React.createClass({
         return React.DOM.div({
             className: css.getClass('root')
         },
-            new User({
-                context: this.props.context
-            }),
-            new Tasks({
-                context: this.props.context
-            })
+
+            React.DOM.div({
+                className: css.getClass('app')
+            },
+                new User({
+                    context: this.props.context
+                }),
+                new Tasks({
+                    context: this.props.context
+                })
+            )
         )
     }
 
