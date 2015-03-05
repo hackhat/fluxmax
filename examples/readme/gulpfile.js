@@ -30,7 +30,7 @@ gulp.task("webpack-dev-server", function(callback){
         },
         resolve: {
             alias: {
-                Fluxmax: absPath('../../src/index')
+                fluxmax: absPath('../../src/index')
             },
         },
         plugins: [

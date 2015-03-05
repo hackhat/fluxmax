@@ -1,2 +1,2 @@
-var Fluxmax = require('Fluxmax');
+var Fluxmax = require('fluxmax');
 debugger
