@@ -31,7 +31,9 @@ To understand the power of fluxmax we need to use multiple stores which depends 
       |          |
       -<---<---<--
 
-For example this complex situation can be handled easily (See [here the source](https://github.com/hackhat/fluxmax-smart-css)):
+### Example
+
+Solve a complex situation like the following can be handled easily (See [here the full source](https://github.com/hackhat/fluxmax-smart-css)):
 
 **Rules:**
 
@@ -51,7 +53,7 @@ For example this complex situation can be handled easily (See [here the source](
    - This will also complete the 2nd task because the user now has 12 points;
 
 Can you see how this is not a simple job to do in flux. When this is done in flux the
-code becomes complicated and is not natural, which increases the complexity of the app.
+code becomes complicated and doesn't feel natural, which increases the complexity of the app.
 
 
 ### How it doesn't update the view multiple times?
@@ -75,6 +77,20 @@ The second phase is the "batch" phase which gets called on the next animation fr
 
  The first phase is called `each` (because dispatches on `each` change) and the listeners receives the event as soon as it's dispatched. The second phase is called `batch` (because dispatches the events on `batch`) and the listeners receives the event only when the `Fluxmax.emitBatchChanges` method is called.
 
+
+#### Dependencies
+
+Fluxmax makes very easy to see how your app is wired internally, just open the console and you will see all the dependencies:
+
+![dependencies](./docs/dependencies.jpg)
+
+> Dependency defined in "store.task" on "actions" at type "ui.tasks.addTask" is valid. [each]
+
+The first line says the `task` store listens on the entity `actions` on the event `ui.tasks.addTask`. The entity `actions` is used from the view/UI part of the app. The `[each]` part at the end tells that is listening on the `each phase`.
+
+> Dependency defined in "ui.user" on "store.user" at type "*" is valid. [batch]
+
+The last line says the the `ui.user` entity, which is the view of the user which contains the points, listens on `*` events (this means that listen to all the events) on the `user` store. Notice that at the end now says `[batch]`, this means that the view is listening on the `batch phase`.
 
 
 ## How to use
