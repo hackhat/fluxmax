@@ -31,7 +31,16 @@ To understand the power of fluxmax we need to use multiple stores which depends 
       |          |
       -<---<---<--
 
-For example this can be handled (See [here the source](https://github.com/hackhat/fluxmax-smart-css)):
+For example this complex situation can be handled easily (See [here the source](https://github.com/hackhat/fluxmax-smart-css)):
+
+**Rules:**
+
+ - When a task is added the user gets 1 point;
+ - When a task is done manually or automatically the user gets a random number of points;
+ - Each task has a threshold which defines the minimum of points the user needs to have to complete automatically; When this threshold is reached the task auto completes.
+ - When a task passes from completed to not complete the user lose the points;
+
+**Flow:**
 
  - User adds a new task which auto completes when the user has 2 points;
  - On adding a task the user receives 1 point;
