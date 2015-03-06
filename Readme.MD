@@ -99,54 +99,5 @@ The last line says the the `ui.user` entity, which is the view of the user which
 
 ## How to use
 
-You should use a module loader such as webpack or browserify to use it properly.
-
-```javascript
-var Fluxmax = require('fluxmax');
-var fluxmax = new Fluxmax.App();
-fluxmax.addEntities(instanceEntities);
-```
-
-
-### Create a store
-
-First we need to create a base store to inherit from in the implementation/real stores:
-
-```javascript
-var FluxmaxStoreMixin = require('fluxmax').StoreMixin;
-var BaseStore = function(){};
-_.extend(BaseStore.prototype, EventEmitter.prototype, FluxmaxStoreMixin, {});
-```
-
-Then we need to create the real store:
-
-```javascript
-var BaseStore = require('BaseStore');
-var App       = require('fluxmax').App;
-var CarStore = function(){
-    this.__cars = [];
-};
-var E = CarStore; // "E" from "Entity".
-E.meta = {
-    // Unique id of this entity.
-    id: 'store.car',
-    // What events this entity dispatches.
-    changeTypes: [
-        'add',
-    ],
-    // To what events this entity listens to.
-    listeners: [
-    ]
-}
-E.listen = App.addMetaEntity(E.meta);
-_.extend(CarStore, BaseStore, {}); // Static methods inheritance
-_.extend(CarStore.prototype, BaseStore.prototype, {
-    add: function(car){
-        this.__cars.push(car);
-        // Special method inherited from FluxmaxStoreMixin.
-        // This will dispatch an "add" event from the entity
-        // "store.car" and contains the payload `car`.
-        this.emitChange('add', car);
-    }
-}); // Instance methods inheritance
-```
+Is not very easy to get started and there are a lot of rules to make it work. Because of this a tutorial here would not be a good approach to explain how it works.
+The best way to understand is to read the source code of the [fluxmax-smart-css](https://github.com/hackhat/fluxmax-smart-css).
