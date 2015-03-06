@@ -10,6 +10,10 @@
 
 
 
+## 2 Phases
+
+![2 phases](./docs/internals.jpg)
+
 
 ## Install
 
