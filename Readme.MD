@@ -2,6 +2,8 @@
 
 2 phase events: update stores then views. 1 way flow. Static event deps checker.
 
+[## See example with source](https://github.com/hackhat/fluxmax-smart-css)
+
 **Quick features:**
 
  - Update stores properly and naturally;
