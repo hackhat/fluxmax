@@ -25,15 +25,46 @@ Check the **[full API here](https://cdn.rawgit.com/hackhat/fluxmax/v0.0.1/docs/j
 
 ## Rationale
 
+To understand the power of fluxmax we need to use multiple stores which depends on themselves.
 
-### Introduction
+    Store A -> Store B
+      |          |
+      -<---<---<--
 
-There are 2 main concepts to understand:
+For example this can be handled (See [here the source](https://github.com/hackhat/fluxmax-smart-css)):
 
- - 1st phase: each;
- - 2nd phase: batch;
+ - User adds a new task which auto completes when the user has 2 points;
+ - On adding a task the user receives 1 point;
+ - User adds another task which adds 1 point and auto completes when the user has 5 points.
+   - Now the user has a total of 2 points;
+   - The first task is done.
+   - When the first task is done the user receives 10 points;
+   - This will also complete the 2nd task because the user now has 12 points;
 
- The first phase is called `each` (because dispatches on `each` change) and the listeners receives the event as soon as it's dispatched. The second phase is called `batch` (because dispatches the events on `batch`) and the listeners receives the event only when the Fluxmax.emitBatchChanges method is called.
+Can you see how this is not a simple job to do in flux. When this is done in flux the
+code becomes complicated and is not natural, which increases the complexity of the app.
+
+
+### How it doesn't update the view multiple times?
+
+A naive way to solve these problems is to be able to make the store A to update store B and then store B to update store A.
+But when store A changes the view updates so there is a problem: the store A changes twice after an action and the view that listen to the store A will update twice.
+This will be an issue when the application grow. So here is how this library solves this problem.
+
+
+#### Each phase
+
+There is a first event phase which only the stores listen to, which is called the "each" phase. In this phase store A emits twice, but the view doesn't listen to the "each" phase so it doesn't get updated.
+
+
+#### Batch phase
+
+The second phase is the "batch" phase which gets called on the next animation frame and dispatches only one event from store A. So if the store A dispatched the event "test" twice with data `1` and then data `2` the view will only only receive one "test" event with data `[1, 2]`. Notice how you don't lose any data along while grouping the events from the "each" phase.
+
+
+#### Deeper understanding
+
+ The first phase is called `each` (because dispatches on `each` change) and the listeners receives the event as soon as it's dispatched. The second phase is called `batch` (because dispatches the events on `batch`) and the listeners receives the event only when the `Fluxmax.emitBatchChanges` method is called.
 
 
 
