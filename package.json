@@ -1,6 +1,6 @@
 {
   "name": "fluxmax",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "2 phase events: update stores then views. 1 way flow. Static event deps checker.",
   "main": "src/index.js",
   "scripts": {
