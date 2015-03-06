@@ -1,6 +1,6 @@
 {
     "--": ["./src"],
-    "--title": "fluxomax API & Docs",
+    "--title": "fluxmax API & Docs",
     "--output": "./docs/jsduck"
     // "--guides": "./docs/guides/guides.json"
 }

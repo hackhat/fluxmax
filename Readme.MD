@@ -23,7 +23,7 @@
 
 ## API
 
-Check the **[full API here](https://cdn.rawgit.com/hackhat/fluxmax/v0.0.1/docs/jsduck/index.html)**.
+Check the **[full API here](https://cdn.rawgit.com/hackhat/fluxmax/v0.0.2/docs/jsduck/index.html)**.
 
 
 
