@@ -10,7 +10,7 @@
 
 
 
-## 2 Phases
+## Quick view about the 2 phase system
 
 ![2 phases](./docs/internals.jpg)
 
